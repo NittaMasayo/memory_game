@@ -26,7 +26,7 @@ jobs:
 
       # widgetテストの実行
       - name: Run widget tests
-        run: flutter test test/widget_test/
+        run: flutter test
 
       # ユニットテストの実行
       - name: Run unit tests
