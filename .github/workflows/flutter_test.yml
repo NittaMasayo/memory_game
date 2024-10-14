@@ -41,11 +41,6 @@ jobs:
 
       # 統合テスト後にテスト結果のログやスクリーンショットをアップロード
       - name: Upload test results (if any)
-        if: failure() || success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: flutter-test-results
-          path: test-results/
         if: success()
         run: |
           git config --global user.name "GitHub Actions"
