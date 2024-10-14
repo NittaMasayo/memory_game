@@ -1,9 +1,9 @@
 name: Flutter Test
 
 on:
-  push:
+  pull_request:
     branches:
-      - develop # developブランチに対してPRが作成された場合にトリガーされます
+      - main # developブランチに対してPRが作成された場合にトリガーされます
 
 jobs:
   test:
