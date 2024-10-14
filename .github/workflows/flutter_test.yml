@@ -1,9 +1,9 @@
 name: Flutter Test
 
 on:
-  pull_request:
+  push:
     branches:
-      - main # developブランチに対してPRが作成された場合にトリガーされます
+      - develop # developブランチに対してPRが作成された場合にトリガーされます
 
 jobs:
   test:
@@ -46,3 +46,11 @@ jobs:
         with:
           name: flutter-test-results
           path: test-results/
+        if: success()
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "2922mpay@gmail.com"
+          git remote set-url origin https://NittaMasayo:${{ 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 }}@github.com/memory_game
+          git checkout main
+          git merge develop
+          git push origin main
