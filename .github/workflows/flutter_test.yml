@@ -1,12 +1,9 @@
 name: Flutter Test
 
 on:
-  push:
-    branches:
-      - develop # developブランチにpushされた場合にトリガーされます
   pull_request:
     branches:
-      - develop # developブランチに対してPRが作成された場合にトリガーされます
+      - main # developブランチに対してPRが作成された場合にトリガーされます
 
 jobs:
   test:
@@ -27,9 +24,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      # widgetテストの実行
+      - name: Run widget tests
+        run: flutter test test/widget_test/
+
       # ユニットテストの実行
       - name: Run unit tests
-        run: flutter test
+        run: flutter test test/unit_test/
 
       # 統合テストの実行（iOSやAndroidエミュレータの設定が必要）
       - name: Run integration tests
