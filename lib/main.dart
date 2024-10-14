@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memory_game/presentation/view/page/top_page.dart';
+import 'package:memory_game/presentation/view/theme/color.dart';
+import 'package:memory_game/presentation/view/theme/font_style.dart';
 
 void main() {
   runApp(const ProviderScope(child: MemoryApp()));
@@ -16,7 +18,16 @@ class MemoryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '記憶力ゲーム',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primaryColor: ColorTheme.primaryColor,
+        scaffoldBackgroundColor: ColorTheme.primaryColor,
+        appBarTheme: const AppBarTheme(
+            titleTextStyle: FontStyle.largeText,
+            titleSpacing: 8.0,
+            backgroundColor: ColorTheme.primaryColor,
+            centerTitle: true),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: ColorTheme.buttonColor)),
         useMaterial3: true,
       ),
       home: const TopPage(),
