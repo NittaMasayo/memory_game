@@ -40,14 +40,14 @@ jobs:
       #     flutter drive -d linux --target=test_driver/app.dart
 
       # 統合テスト後にmainブランチにpush
-      - name: Upload test results (if any)
-        if: success()
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "2922mpay@gmail.com"
-          git config pull.rebase false
-          git remote set-url origin https://NittaMasayo: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@github.com/NittaMasayo/memory_game
-          git fetch --prune
-          git checkout main
-          git pull --allow-unrelated-histories origin develop
-          git push origin main
+      # - name: Upload test results (if any)
+      #   if: success()
+      #   run: |
+      #     git config --global user.name "GitHub Actions"
+      #     git config --global user.email "2922mpay@gmail.com"
+      #     git config pull.rebase false
+      #     git remote set-url origin https://NittaMasayo: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@github.com/NittaMasayo/memory_game
+      #     git fetch --prune
+      #     git checkout main
+      #     git pull --allow-unrelated-histories origin develop
+      #     git push origin main
