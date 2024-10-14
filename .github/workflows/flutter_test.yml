@@ -39,7 +39,7 @@ jobs:
       # 統合テスト後にテスト結果のログやスクリーンショットをアップロード
       - name: Upload test results (if any)
         if: failure() || success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: flutter-test-results
           path: test-results/
