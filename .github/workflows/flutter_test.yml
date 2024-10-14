@@ -18,7 +18,7 @@ jobs:
       - name: Install Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'latest' # 最新バージョンのFlutter SDKをインストール
+          channel: 'stable'
 
       # プロジェクトの依存関係をインストール
       - name: Install dependencies
