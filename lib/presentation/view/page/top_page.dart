@@ -23,6 +23,7 @@ class TopPage extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
+                key: const ValueKey("gameStart"),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(

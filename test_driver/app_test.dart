@@ -17,14 +17,13 @@ void main() {
       }
     });
 
-    test('Counter increments', () async {
+    test('Game Start', () async {
       if (driver != null) {
-        final buttonFinder = find.byValueKey('increment');
+        final buttonFinder = find.byValueKey('gameStart');
         await driver!.tap(buttonFinder);
 
-        // カウンターの値を取得して確認する
-        final counterTextFinder = find.byValueKey('counter');
-        expect(await driver!.getText(counterTextFinder), "1");
+        final gridFinder = find.byValueKey('tapGrid');
+        expect(gridFinder, true);
       }
     });
   });
