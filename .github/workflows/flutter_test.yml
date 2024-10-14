@@ -16,7 +16,7 @@ jobs:
 
       # Flutter SDKをインストール
       - name: Install Flutter SDK
-        uses: subosito/flutter-action@v3
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: 'latest' # 最新バージョンのFlutter SDKをインストール
 
