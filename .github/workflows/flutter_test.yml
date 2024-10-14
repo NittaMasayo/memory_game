@@ -12,11 +12,11 @@ jobs:
     steps:
       # Flutterプロジェクトをチェックアウト
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Flutter SDKをインストール
       - name: Install Flutter SDK
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v3
         with:
           flutter-version: 'latest' # 最新バージョンのFlutter SDKをインストール
 
