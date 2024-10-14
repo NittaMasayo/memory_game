@@ -22,8 +22,8 @@ void main() {
         final buttonFinder = find.byValueKey('gameStart');
         await driver!.tap(buttonFinder);
 
-        final gridFinder = find.byValueKey('tapGrid');
-        expect(gridFinder, true);
+        final SerializableFinder newScreenTextFinder = find.text('ゲーム');
+        expect(await driver!.getText(newScreenTextFinder), 'ゲーム');
       }
     });
   });
