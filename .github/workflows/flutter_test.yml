@@ -1,0 +1,44 @@
+name: Flutter Test
+
+on:
+  push:
+    branches:
+      - develop # developブランチにpushされた場合にトリガーされます
+  pull_request:
+    branches:
+      - develop # developブランチに対してPRが作成された場合にトリガーされます
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Flutterプロジェクトをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Flutter SDKをインストール
+      - name: Install Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'latest' # 最新バージョンのFlutter SDKをインストール
+
+      # プロジェクトの依存関係をインストール
+      - name: Install dependencies
+        run: flutter pub get
+
+      # ユニットテストの実行
+      - name: Run unit tests
+        run: flutter test
+
+      # 統合テストの実行（iOSやAndroidエミュレータの設定が必要）
+      - name: Run integration tests
+        run: flutter drive --target=test_driver/app.dart
+
+      # 統合テスト後にテスト結果のログやスクリーンショットをアップロード
+      - name: Upload test results (if any)
+        if: failure() || success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: flutter-test-results
+          path: test-results/
