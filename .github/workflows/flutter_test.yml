@@ -34,7 +34,8 @@ jobs:
 
       # 統合テストの実行（iOSやAndroidエミュレータの設定が必要）
       - name: Run integration tests
-        run: sudo apt-get update -y
+        run: |-
+          sudo apt-get update -y
           sudo apt-get install -y ninja-build libgtk-3-dev
           flutter drive -d linux --target=test_driver/app.dart
 
