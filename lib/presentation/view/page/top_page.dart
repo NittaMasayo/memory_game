@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memory_game/presentation/view/common/common_vertical_space.dart';
-import 'package:memory_game/presentation/view/page/game_page.dart';
+import 'package:memory_game/presentation/view/page/input_page.dart';
+import 'package:memory_game/presentation/view/theme/font_style.dart';
 
 class TopPage extends ConsumerWidget {
   const TopPage({super.key});
@@ -10,9 +11,10 @@ class TopPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text("ようこそ！"),
-        leading: const Icon(Icons.settings, color: Colors.white),
+        title: const Text(
+          "ようこそ！",
+          style: FontStyle.largeText,
+        ),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -27,13 +29,15 @@ class TopPage extends ConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const GamePage(),
+                      builder: (context) => InputPage(),
                     ),
                   );
                 },
-                child: const Text("始める")),
+                child: const Text("始める", style: FontStyle.semiLargeText)),
             const CommonVerticalSpace(),
-            TextButton(onPressed: () {}, child: const Text("チュートリアル")),
+            TextButton(
+                onPressed: () {},
+                child: const Text("遊び方", style: FontStyle.semiLargeText)),
           ],
         ),
       ),

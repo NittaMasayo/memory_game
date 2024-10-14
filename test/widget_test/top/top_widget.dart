@@ -7,7 +7,7 @@ class TopWidget {
     testWidgets('top page', (WidgetTester tester) async {
       // Build our app and trigger a frame.
       await tester.pumpWidget(const MemoryApp());
-      expect(find.text('チュートリアル'), findsOneWidget);
+      expect(find.text('遊び方'), findsOneWidget);
 
       // Verify that our counter starts at 0.
       expect(find.text('始める'), findsOneWidget);
@@ -16,7 +16,7 @@ class TopWidget {
 
       await tester.pumpAndSettle();
 
-      final gridItemsFinder = find.byKey(const ValueKey("tapGrid"));
+      final gridItemsFinder = find.byKey(const ValueKey("form"));
       expect(gridItemsFinder, findsOneWidget);
     });
   }
