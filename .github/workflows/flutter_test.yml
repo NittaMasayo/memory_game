@@ -34,7 +34,7 @@ jobs:
 
       # 統合テストの実行（iOSやAndroidエミュレータの設定が必要）
       - name: Run integration tests
-        run: flutter drive --target=test_driver/app.dart
+        run: flutter drive -d apple_ios_simulator --target=test_driver/app.dart
 
       # 統合テスト後にテスト結果のログやスクリーンショットをアップロード
       - name: Upload test results (if any)
