@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:memory_game/presentation/view/common/common_vertical_space.dart';
 import 'package:memory_game/presentation/view/page/game_page.dart';
+import 'package:memory_game/presentation/view/page/top_page.dart';
 import 'package:memory_game/presentation/view/theme/color.dart';
 import 'package:memory_game/presentation/view/theme/font_style.dart';
 
@@ -71,6 +72,19 @@ class InputPage extends StatelessWidget {
                       );
                     },
                     child: const Text("スタート！", style: FontStyle.largeText)),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: TextButton(
+                    key: const ValueKey("start"),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TopPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("TOPへ", style: FontStyle.largeText)),
               )
             ],
           ),

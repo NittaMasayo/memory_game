@@ -25,26 +25,35 @@ class GamePage extends ConsumerWidget {
       body: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8),
-        child: GridView.builder(
-            key: const ValueKey("tapGrid"),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: makeArray.columnNumber(cellNumber),
-                childAspectRatio: 1.0,
-                crossAxisSpacing: 0),
-            itemCount: cellNumber,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  onTap: () {
-                    ref.read(targetCircleProvider.notifier).increment();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: ColorTheme.textColor)),
-                    child: TapTargetCircle(
-                      isVisible: gridArray[targetNum - 1] == index ? 1.0 : 0.0,
-                    ),
-                  ));
-            }),
+        child: Column(
+          children: [
+            Expanded(
+              child: GridView.builder(
+                  key: const ValueKey("tapGrid"),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: makeArray.columnNumber(cellNumber),
+                      childAspectRatio: 1.0,
+                      crossAxisSpacing: 0),
+                  itemCount: cellNumber,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        onTap: () {
+                          if (targetNum - 1 == cellNumber) return;
+                          ref.read(targetCircleProvider.notifier).increment();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: ColorTheme.textColor)),
+                          child: TapTargetCircle(
+                            isVisible:
+                                gridArray[targetNum - 1] == index ? 1.0 : 0.0,
+                          ),
+                        ));
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }
