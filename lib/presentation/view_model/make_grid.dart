@@ -1,15 +1,16 @@
 import 'dart:math' as math;
 
 class MakeGrid {
-  final int challengeNumber;
-  final int gridNumber;
-  MakeGrid({this.challengeNumber = 10, this.gridNumber = 9});
-
-  List<int> makeAnswerArray() {
+  List<int> makeAnswerArray({int challengeNumber = 10, int gridNumber = 9}) {
     List<int> answerArray = [];
     for (int i = 1; i <= challengeNumber; i++) {
       final randomNum = math.Random();
-      answerArray = [...answerArray, randomNum.nextInt(gridNumber)];
+      int newInt = randomNum.nextInt(gridNumber);
+      if (answerArray.isNotEmpty &&
+          newInt == answerArray[answerArray.length - 1]) {
+        newInt = randomNum.nextInt(gridNumber);
+      }
+      answerArray = [...answerArray, newInt];
     }
     return answerArray;
   }

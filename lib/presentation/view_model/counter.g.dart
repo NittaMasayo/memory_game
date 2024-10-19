@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'target_circle.dart';
+part of 'counter.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$targetCircleHash() => r'3cc8e6bcbb2b8f81c0a4c7aa1c07affc0be7c556';
+String _$counterHash() => r'45c72ebe10a9b855937d21501530e8b4557446d4';
 
-/// See also [TargetCircle].
-@ProviderFor(TargetCircle)
-final targetCircleProvider =
-    AutoDisposeNotifierProvider<TargetCircle, int>.internal(
-  TargetCircle.new,
-  name: r'targetCircleProvider',
+/// See also [Counter].
+@ProviderFor(Counter)
+final counterProvider = AutoDisposeNotifierProvider<Counter, int>.internal(
+  Counter.new,
+  name: r'counterProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$targetCircleHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$counterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TargetCircle = AutoDisposeNotifier<int>;
+typedef _$Counter = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

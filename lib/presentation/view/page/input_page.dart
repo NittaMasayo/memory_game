@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memory_game/presentation/view/common/common_vertical_space.dart';
 import 'package:memory_game/presentation/view/page/game_page.dart';
 import 'package:memory_game/presentation/view/page/top_page.dart';
 import 'package:memory_game/presentation/view/theme/color.dart';
 import 'package:memory_game/presentation/view/theme/font_style.dart';
+import 'package:memory_game/presentation/view_model/counter.dart';
+import 'package:memory_game/presentation/view_model/make_grid.dart';
+import 'package:memory_game/presentation/view_model/target_circle.dart';
 
-class InputPage extends StatelessWidget {
+class InputPage extends ConsumerWidget {
   InputPage({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final counterTimeNumber = TextEditingController(text: "10");
+  final cellNumberController = TextEditingController(text: "9");
 
   @override
-  Widget build(BuildContext context) {
-    int cellNumber = 9;
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("ゲーム設定"),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -36,9 +41,10 @@ class InputPage extends StatelessWidget {
                 key: const ValueKey("cell"),
                 width: MediaQuery.of(context).size.width - 32,
                 textStyle: FontStyle.primaryText,
+                onSelected: (value) => {cellNumberController.text = value},
                 inputDecorationTheme:
                     const InputDecorationTheme(fillColor: ColorTheme.textColor),
-                initialSelection: "9",
+                initialSelection: cellNumberController.text,
                 dropdownMenuEntries: const <DropdownMenuEntry>[
                   DropdownMenuEntry(value: "4", label: "4"),
                   DropdownMenuEntry(value: "9", label: "9"),
@@ -62,11 +68,19 @@ class InputPage extends StatelessWidget {
                 child: TextButton(
                     key: const ValueKey("start"),
                     onPressed: () {
+                      ref.read(counterProvider.notifier).reset();
+                      ref.read(targetCircleProvider.notifier).reset();
+                      final makeGrid = MakeGrid();
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => GamePage(
-                            cellNumber: cellNumber,
+                            cellNumber: int.parse(cellNumberController.text),
                             challengeNum: int.parse(counterTimeNumber.text),
+                            gridArray: makeGrid.makeAnswerArray(
+                                gridNumber:
+                                    int.parse(cellNumberController.text),
+                                challengeNumber:
+                                    int.parse(counterTimeNumber.text)),
                           ),
                         ),
                       );
@@ -76,7 +90,7 @@ class InputPage extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 child: TextButton(
-                    key: const ValueKey("start"),
+                    key: const ValueKey("toTop"),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

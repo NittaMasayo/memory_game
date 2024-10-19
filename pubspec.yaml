@@ -39,6 +39,8 @@ dependencies:
   riverpod_annotation: ^2.5.3
   shared_preferences: ^2.3.2
   mockito: ^5.4.4
+  logger: ^2.4.0
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -100,3 +102,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: '#192f60'

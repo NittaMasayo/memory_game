@@ -1,12 +1,12 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'target_circle.g.dart';
+part 'counter.g.dart';
 
 @riverpod
-class TargetCircle extends _$TargetCircle {
+class Counter extends _$Counter {
   @override
   int build() {
-    return 0;
+    return 1;
   }
 
   void increment() {
@@ -14,6 +14,6 @@ class TargetCircle extends _$TargetCircle {
   }
 
   void reset() {
-    state = 0;
+    state = 1;
   }
 }

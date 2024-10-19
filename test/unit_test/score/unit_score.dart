@@ -30,10 +30,20 @@ void main() {
 
   group("test answer array", () {
     test('マスの数だけ計算結果の数字を作る', () {
-      final makeGrid = MakeGrid(gridNumber: 16, challengeNumber: 20);
-      final result = makeGrid.makeAnswerArray();
+      final makeGrid = MakeGrid();
+      final result =
+          makeGrid.makeAnswerArray(gridNumber: 16, challengeNumber: 20);
       expect(result.contains(17), false);
       expect(result.length, 20);
+    });
+  });
+
+  group("test answer array same int", () {
+    test('前後で同じ数字がないかチェック', () {
+      final makeGrid = MakeGrid();
+      final result =
+          makeGrid.makeAnswerArray(gridNumber: 4, challengeNumber: 10);
+      expect(result[result.length - 1], isNot(result[result.length - 2]));
     });
   });
 }

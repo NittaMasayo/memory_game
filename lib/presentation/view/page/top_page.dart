@@ -15,6 +15,7 @@ class TopPage extends ConsumerWidget {
           "ようこそ！",
           style: FontStyle.largeText,
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
