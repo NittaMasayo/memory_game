@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:memory_game/main.dart';
+import 'package:mneme/main.dart';
 
 class TopWidget {
   void main() {

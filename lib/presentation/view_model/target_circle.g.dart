@@ -6,7 +6,7 @@ part of 'target_circle.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$targetCircleHash() => r'0a81cfa435d223f97225870b7b102310ab9964c7';
+String _$targetCircleHash() => r'3cc8e6bcbb2b8f81c0a4c7aa1c07affc0be7c556';
 
 /// See also [TargetCircle].
 @ProviderFor(TargetCircle)

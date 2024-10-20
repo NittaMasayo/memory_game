@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:memory_game/presentation/view/page/input_page.dart';
+import 'package:mneme/presentation/view/page/input_page.dart';
 
 class InputWidget {
   void main() {
@@ -16,7 +16,7 @@ class InputWidget {
       ));
       expect(find.byKey(const ValueKey("form")), findsOneWidget);
 
-      expect(find.text("※何も入力しない場合は9マスで10回挑戦することになります。"), findsOneWidget);
+      expect(find.text("※デフォルトでは9マスで10回挑戦します。"), findsOneWidget);
       expect(find.text("マスの数"), findsOneWidget);
       expect(find.text("挑戦する回数"), findsOneWidget);
 
@@ -27,11 +27,14 @@ class InputWidget {
       final dropdownItem = find.text("16").last;
       await tester.tap(dropdownItem);
       expect(find.text("16"), findsAtLeast(2));
+      await tester.tap(find.text("16").first);
+      await tester.pumpAndSettle();
 
       final timeTextBox = find.byKey(const ValueKey("challenge"));
-      await tester.enterText(timeTextBox, "11");
+      await tester.tap(timeTextBox);
+      expect(find.text("10"), findsAtLeast(2));
+      await tester.tap(find.text("10").first);
       await tester.pumpAndSettle();
-      expect(find.text("11"), findsOneWidget);
 
       final startButton = find.byKey(const ValueKey("start"));
       await tester.tap(startButton);

@@ -6,7 +6,7 @@ part 'target_circle.g.dart';
 class TargetCircle extends _$TargetCircle {
   @override
   int build() {
-    return 1;
+    return 0;
   }
 
   void increment() {

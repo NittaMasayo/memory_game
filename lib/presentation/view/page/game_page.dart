@@ -1,50 +1,144 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:memory_game/presentation/view/common/tap_target_circle.dart';
-import 'package:memory_game/presentation/view/theme/color.dart';
-import 'package:memory_game/presentation/view_model/make_grid.dart';
-import 'package:memory_game/presentation/view_model/target_circle.dart';
+import 'package:logger/web.dart';
+import 'package:mneme/presentation/view/common/common_vertical_space.dart';
+import 'package:mneme/presentation/view/common/modal.dart';
+import 'package:mneme/presentation/view/common/tap_target_circle.dart';
+import 'package:mneme/presentation/view/theme/color.dart';
+import 'package:mneme/presentation/view/theme/font_style.dart';
+import 'package:mneme/presentation/view_model/counter.dart';
+import 'package:mneme/presentation/view_model/make_grid.dart';
+import 'package:mneme/presentation/view_model/score_preference.dart';
+import 'package:mneme/presentation/view_model/target_circle.dart';
 
 class GamePage extends ConsumerWidget {
   final int cellNumber;
   final int challengeNum;
-  const GamePage({this.cellNumber = 9, this.challengeNum = 10, super.key});
+  final List<int> gridArray;
+  GamePage(
+      {this.cellNumber = 9,
+      this.challengeNum = 10,
+      required this.gridArray,
+      super.key});
+  final logger = Logger(filter: null, printer: PrettyPrinter(), output: null);
+  final maleGrid = MakeGrid();
+  static List<int> answerList = [];
+  final modal = CommonModal();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final makeArray =
-        MakeGrid(gridNumber: cellNumber, challengeNumber: challengeNum);
-    final gridArray = makeArray.makeAnswerArray();
+    final counter = ref.watch(counterProvider);
     final targetNum = ref.watch(targetCircleProvider);
+
+    void resetBtnFunc() {
+      answerList = [];
+      ref.read(counterProvider.notifier).reset();
+      ref.read(targetCircleProvider.notifier).reset();
+      Navigator.pop(context);
+    }
+
+    void showCircleFunc() {
+      Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        final nowTargetNum = ref.watch(targetCircleProvider);
+        if (nowTargetNum >= counter) {
+          timer.cancel();
+        } else {
+          ref.read(targetCircleProvider.notifier).increment();
+        }
+      });
+    }
+
+    void successModal() {
+      modal.showSuccessModal(context, () {
+        ref
+            .read(scorePreferenceProvider.notifier)
+            .setNewScore(cellNumber * challengeNum);
+        resetBtnFunc();
+      });
+    }
+
+    void tapCircleFunc(index) {
+      answerList = [...answerList, index];
+      bool isFailed = false;
+      for (int i = 0; i < answerList.length; i++) {
+        if (gridArray[i] != answerList[i]) {
+          isFailed = true;
+          modal.showRetryModal(context, resetBtnFunc);
+          break;
+        }
+      }
+      if (isFailed) return;
+      if (answerList.length == counter) {
+        if (counter >= challengeNum) {
+          successModal();
+          return;
+        }
+        answerList = [];
+        ref.read(counterProvider.notifier).increment();
+        ref.read(targetCircleProvider.notifier).reset();
+        showCircleFunc();
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("ゲーム"),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8),
-        child: GridView.builder(
-            key: const ValueKey("tapGrid"),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: makeArray.columnNumber(cellNumber),
-                childAspectRatio: 1.0,
-                crossAxisSpacing: 0),
-            itemCount: cellNumber,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  onTap: () {
-                    ref.read(targetCircleProvider.notifier).increment();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: ColorTheme.textColor)),
-                    child: TapTargetCircle(
-                      isVisible: gridArray[targetNum - 1] == index ? 1.0 : 0.0,
-                    ),
-                  ));
-            }),
+        alignment: Alignment.topCenter,
+        padding: EdgeInsets.fromLTRB(
+            8, MediaQuery.of(context).size.height / 16, 16, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "$counter回目",
+                  style: FontStyle.primaryText,
+                ),
+                TextButton(
+                    key: const ValueKey("pause"),
+                    onPressed: () {
+                      modal.showPauseModal(context, resetBtnFunc);
+                    },
+                    child: const Text("一時停止", style: FontStyle.primaryText))
+              ],
+            ),
+            const CommonVerticalSpace(),
+            Expanded(
+                child: GridView.builder(
+                    key: const ValueKey("tapGrid"),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: maleGrid.columnNumber(cellNumber),
+                        childAspectRatio: 1.0,
+                        crossAxisSpacing: 0),
+                    itemCount: cellNumber,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                          onTap: () {
+                            tapCircleFunc(index);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: ColorTheme.textColor)),
+                            child: TapTargetCircle(
+                                isVisible:
+                                    gridArray[targetNum] == index ? 1.0 : 0.0),
+                          ));
+                    })),
+          ],
+        ),
       ),
     );
   }
