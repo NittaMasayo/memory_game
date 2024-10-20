@@ -16,7 +16,7 @@ class InputWidget {
       ));
       expect(find.byKey(const ValueKey("form")), findsOneWidget);
 
-      expect(find.text("※何も入力しない場合は9マスで10回挑戦することになります。"), findsOneWidget);
+      expect(find.text("※デフォルトでは9マスで10回挑戦します。"), findsOneWidget);
       expect(find.text("マスの数"), findsOneWidget);
       expect(find.text("挑戦する回数"), findsOneWidget);
 
