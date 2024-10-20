@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/web.dart';
+import 'package:mneme/business/model/score_model.dart';
 import 'package:mneme/presentation/view/common/common_vertical_space.dart';
 import 'package:mneme/presentation/view/common/modal.dart';
 import 'package:mneme/presentation/view/common/tap_target_circle.dart';
@@ -51,10 +52,9 @@ class GamePage extends ConsumerWidget {
     }
 
     void successModal() {
+      ref.read(scorePreferenceProvider.notifier).setNewScore(
+          ScoreModel(cellNumber: cellNumber, challengeNumber: challengeNum));
       modal.showSuccessModal(context, () {
-        ref
-            .read(scorePreferenceProvider.notifier)
-            .setNewScore(cellNumber * challengeNum);
         resetBtnFunc();
       });
     }

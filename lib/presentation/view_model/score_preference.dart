@@ -1,3 +1,4 @@
+import 'package:mneme/business/model/score_model.dart';
 import 'package:mneme/business/repository/base_repository.dart';
 import 'package:mneme/business/repository/shared_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,24 +9,25 @@ part 'score_preference.g.dart';
 @riverpod
 class ScorePreference extends _$ScorePreference {
   BaseRepository? repository;
-  Future<int> _initScore() async {
+  Future<List<ScoreModel>> _initScore() async {
     final pref = await SharedPreferences.getInstance();
     const scoreKeyName = "score";
     repository = SharedRepository(pref, scoreKeyName);
     if (repository != null) {
       return repository!.getScore();
     }
-    return 0;
+    return [];
   }
 
   @override
-  Future<int> build() {
+  Future<List<ScoreModel>> build() {
     return _initScore();
   }
 
-  Future<void> setNewScore(int newScore) async {
+  Future<void> setNewScore(ScoreModel newScore) async {
+    final newScoreList = [...state.value!, newScore];
     if (repository != null) {
-      repository!.setScore(newScore);
+      repository!.setScore(newScoreList);
     }
   }
 }
