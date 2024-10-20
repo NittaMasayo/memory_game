@@ -27,11 +27,14 @@ class InputWidget {
       final dropdownItem = find.text("16").last;
       await tester.tap(dropdownItem);
       expect(find.text("16"), findsAtLeast(2));
+      await tester.tap(find.text("16").first);
+      await tester.pumpAndSettle();
 
       final timeTextBox = find.byKey(const ValueKey("challenge"));
-      await tester.enterText(timeTextBox, "11");
+      await tester.tap(timeTextBox);
+      expect(find.text("10"), findsAtLeast(2));
+      await tester.tap(find.text("10").first);
       await tester.pumpAndSettle();
-      expect(find.text("11"), findsOneWidget);
 
       final startButton = find.byKey(const ValueKey("start"));
       await tester.tap(startButton);

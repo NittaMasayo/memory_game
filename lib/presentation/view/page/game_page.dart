@@ -13,7 +13,6 @@ import 'package:mneme/presentation/view_model/make_grid.dart';
 import 'package:mneme/presentation/view_model/score_preference.dart';
 import 'package:mneme/presentation/view_model/target_circle.dart';
 
-// ignore: must_be_immutable
 class GamePage extends ConsumerWidget {
   final int cellNumber;
   final int challengeNum;
@@ -25,7 +24,7 @@ class GamePage extends ConsumerWidget {
       super.key});
   final logger = Logger(filter: null, printer: PrettyPrinter(), output: null);
   final maleGrid = MakeGrid();
-  List<int> answerList = [];
+  static List<int> answerList = [];
   final modal = CommonModal();
 
   @override
