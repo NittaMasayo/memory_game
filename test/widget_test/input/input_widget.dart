@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:memory_game/presentation/view/page/input_page.dart';
+import 'package:mneme/presentation/view/page/input_page.dart';
 
 class InputWidget {
   void main() {

@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/web.dart';
-import 'package:memory_game/presentation/view/common/common_vertical_space.dart';
-import 'package:memory_game/presentation/view/common/modal.dart';
-import 'package:memory_game/presentation/view/common/tap_target_circle.dart';
-import 'package:memory_game/presentation/view/theme/color.dart';
-import 'package:memory_game/presentation/view/theme/font_style.dart';
-import 'package:memory_game/presentation/view_model/counter.dart';
-import 'package:memory_game/presentation/view_model/make_grid.dart';
-import 'package:memory_game/presentation/view_model/target_circle.dart';
+import 'package:mneme/presentation/view/common/common_vertical_space.dart';
+import 'package:mneme/presentation/view/common/modal.dart';
+import 'package:mneme/presentation/view/common/tap_target_circle.dart';
+import 'package:mneme/presentation/view/theme/color.dart';
+import 'package:mneme/presentation/view/theme/font_style.dart';
+import 'package:mneme/presentation/view_model/counter.dart';
+import 'package:mneme/presentation/view_model/make_grid.dart';
+import 'package:mneme/presentation/view_model/score_preference.dart';
+import 'package:mneme/presentation/view_model/target_circle.dart';
 
 // ignore: must_be_immutable
 class GamePage extends ConsumerWidget {
@@ -32,7 +33,14 @@ class GamePage extends ConsumerWidget {
     final counter = ref.watch(counterProvider);
     final targetNum = ref.watch(targetCircleProvider);
 
-    void tapCircleFunc() {
+    void resetBtnFunc() {
+      answerList = [];
+      ref.read(counterProvider.notifier).reset();
+      ref.read(targetCircleProvider.notifier).reset();
+      Navigator.pop(context);
+    }
+
+    void showCircleFunc() {
       Timer.periodic(const Duration(milliseconds: 500), (timer) {
         final nowTargetNum = ref.watch(targetCircleProvider);
         if (nowTargetNum >= counter) {
@@ -43,11 +51,36 @@ class GamePage extends ConsumerWidget {
       });
     }
 
-    void resetBtnFunc() {
-      answerList = [];
-      ref.read(counterProvider.notifier).reset();
-      ref.read(targetCircleProvider.notifier).reset();
-      Navigator.pop(context);
+    void successModal() {
+      modal.showSuccessModal(context, () {
+        ref
+            .read(scorePreferenceProvider.notifier)
+            .setNewScore(cellNumber * challengeNum);
+        resetBtnFunc();
+      });
+    }
+
+    void tapCircleFunc(index) {
+      answerList = [...answerList, index];
+      bool isFailed = false;
+      for (int i = 0; i < answerList.length; i++) {
+        if (gridArray[i] != answerList[i]) {
+          isFailed = true;
+          modal.showRetryModal(context, resetBtnFunc);
+          break;
+        }
+      }
+      if (isFailed) return;
+      if (answerList.length == counter) {
+        if (counter >= challengeNum) {
+          successModal();
+          return;
+        }
+        answerList = [];
+        ref.read(counterProvider.notifier).increment();
+        ref.read(targetCircleProvider.notifier).reset();
+        showCircleFunc();
+      }
     }
 
     return Scaffold(
@@ -93,23 +126,7 @@ class GamePage extends ConsumerWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                           onTap: () {
-                            if (counter >= challengeNum) return;
-                            answerList = [...answerList, index];
-                            bool isFailed = false;
-                            for (int i = 0; i < answerList.length; i++) {
-                              if (gridArray[i] != answerList[i]) {
-                                isFailed = true;
-                                modal.showRetryModal(context, resetBtnFunc);
-                                break;
-                              }
-                            }
-                            if (isFailed) return;
-                            if (answerList.length == counter) {
-                              answerList = [];
-                              ref.read(counterProvider.notifier).increment();
-                              ref.read(targetCircleProvider.notifier).reset();
-                              tapCircleFunc();
-                            }
+                            tapCircleFunc(index);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(16),

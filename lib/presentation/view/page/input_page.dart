@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:memory_game/presentation/view/common/common_vertical_space.dart';
-import 'package:memory_game/presentation/view/page/game_page.dart';
-import 'package:memory_game/presentation/view/page/top_page.dart';
-import 'package:memory_game/presentation/view/theme/color.dart';
-import 'package:memory_game/presentation/view/theme/font_style.dart';
-import 'package:memory_game/presentation/view_model/counter.dart';
-import 'package:memory_game/presentation/view_model/make_grid.dart';
-import 'package:memory_game/presentation/view_model/target_circle.dart';
+import 'package:mneme/presentation/view/common/common_vertical_space.dart';
+import 'package:mneme/presentation/view/page/game_page.dart';
+import 'package:mneme/presentation/view/page/top_page.dart';
+import 'package:mneme/presentation/view/theme/color.dart';
+import 'package:mneme/presentation/view/theme/font_style.dart';
+import 'package:mneme/presentation/view_model/counter.dart';
+import 'package:mneme/presentation/view_model/make_grid.dart';
+import 'package:mneme/presentation/view_model/target_circle.dart';
 
 class InputPage extends ConsumerWidget {
   InputPage({super.key});
@@ -25,16 +24,16 @@ class InputPage extends ConsumerWidget {
         automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(
+            16, MediaQuery.of(context).size.height / 6, 16, 0),
         child: Form(
           key: _formKey,
           child: Column(
             key: const ValueKey("form"),
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("※何も入力しない場合は9マスで10回挑戦することになります。",
-                  style: FontStyle.smallText),
+              const Text("※デフォルトでは9マスで10回挑戦します。", style: FontStyle.smallText),
               const CommonVerticalSpace(size: 8.0),
               const Text("マスの数", style: FontStyle.semiLargeText),
               DropdownMenu(
@@ -53,14 +52,28 @@ class InputPage extends ConsumerWidget {
                   DropdownMenuEntry(value: "36", label: "36"),
                 ],
               ),
-              const CommonVerticalSpace(size: 24),
+              const CommonVerticalSpace(size: 32),
               const Text("挑戦する回数", style: FontStyle.semiLargeText),
-              TextField(
+              DropdownMenu(
                 key: const ValueKey("challenge"),
-                style: FontStyle.primaryText,
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: counterTimeNumber,
+                width: MediaQuery.of(context).size.width - 32,
+                textStyle: FontStyle.primaryText,
+                onSelected: (value) => {counterTimeNumber.text = value},
+                inputDecorationTheme:
+                    const InputDecorationTheme(fillColor: ColorTheme.textColor),
+                initialSelection: counterTimeNumber.text,
+                dropdownMenuEntries: const <DropdownMenuEntry>[
+                  DropdownMenuEntry(value: "5", label: "5"),
+                  DropdownMenuEntry(value: "10", label: "10"),
+                  DropdownMenuEntry(value: "15", label: "15"),
+                  DropdownMenuEntry(value: "20", label: "20"),
+                  DropdownMenuEntry(value: "25", label: "25"),
+                  DropdownMenuEntry(value: "30", label: "30"),
+                  DropdownMenuEntry(value: "35", label: "35"),
+                  DropdownMenuEntry(value: "40", label: "40"),
+                  DropdownMenuEntry(value: "45", label: "45"),
+                  DropdownMenuEntry(value: "50", label: "50"),
+                ],
               ),
               const CommonVerticalSpace(size: 48),
               Container(

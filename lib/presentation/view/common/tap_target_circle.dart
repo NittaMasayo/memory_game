@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memory_game/presentation/view/theme/color.dart';
+import 'package:mneme/presentation/view/theme/color.dart';
 
 class TapTargetCircle extends StatelessWidget {
   final double isVisible;

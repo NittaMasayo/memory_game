@@ -1,4 +1,4 @@
-name: memory_game
+name: mneme
 description: 'A new Flutter project.'
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -41,6 +41,7 @@ dependencies:
   mockito: ^5.4.4
   logger: ^2.4.0
   flutter_native_splash: ^2.4.1
+  icons_launcher: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -104,3 +105,13 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
   color: '#192f60'
+
+icons_launcher:
+  image_path: 'assets/image/icon.png'
+  platforms:
+    android:
+      enable: true
+      adaptive_background_color: '#192f60'
+      adaptive_foreground_image: 'assets/image/icon.png'
+    ios:
+      enable: true

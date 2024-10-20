@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:memory_game/business/repository/base_repository.dart';
-import 'package:memory_game/business/repository/shared_repository.dart';
-import 'package:memory_game/presentation/view_model/make_grid.dart';
+import 'package:mneme/business/repository/base_repository.dart';
+import 'package:mneme/business/repository/shared_repository.dart';
+import 'package:mneme/presentation/view_model/make_grid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

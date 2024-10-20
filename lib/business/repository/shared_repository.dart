@@ -1,4 +1,4 @@
-import 'package:memory_game/business/repository/base_repository.dart';
+import 'package:mneme/business/repository/base_repository.dart';
 
 class SharedRepository extends BaseRepository {
   SharedRepository(super.preferences, super.keyName);

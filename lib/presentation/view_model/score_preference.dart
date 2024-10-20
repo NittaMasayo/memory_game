@@ -1,4 +1,4 @@
-import 'package:memory_game/business/repository/shared_repository.dart';
+import 'package:mneme/business/repository/shared_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
