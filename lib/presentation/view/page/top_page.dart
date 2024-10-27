@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mneme/presentation/view/common/common_vertical_space.dart';
 import 'package:mneme/presentation/view/page/input_page.dart';
+import 'package:mneme/presentation/view/page/tutorial_page.dart';
 import 'package:mneme/presentation/view/theme/font_style.dart';
 
 class TopPage extends ConsumerWidget {
@@ -40,7 +41,11 @@ class TopPage extends ConsumerWidget {
                 child: const Text("始める", style: FontStyle.semiLargeText)),
             const CommonVerticalSpace(),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TutorialPage(),
+                  ));
+                },
                 child: const Text("遊び方", style: FontStyle.semiLargeText)),
           ],
         ),

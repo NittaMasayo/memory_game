@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mneme/presentation/view/page/top_page.dart';
+import 'package:mneme/presentation/view/theme/color.dart';
 import 'package:mneme/presentation/view/theme/font_style.dart';
 
 class TutorialPage extends ConsumerWidget {
@@ -9,31 +11,29 @@ class TutorialPage extends ConsumerWidget {
 
   final pages = [
     PageModel(
-        color: const Color(0xFF0097A7),
-        imageAssetPath: 'assets/image/icon.png',
-        title: 'Screen 1',
-        body: 'Share your ideas with the team',
-        doAnimateImage: true),
+        color: ColorTheme.primaryColor,
+        imageAssetPath: 'assets/image/select_hard.png',
+        title: '難易度を決める',
+        body: 'まずマスの数と\n挑戦する回数を選びます。',
+        doAnimateImage: false),
     PageModel(
-        color: const Color(0xFF536DFE),
-        imageAssetPath: 'assets/image/icon.png',
-        title: 'Screen 2',
-        body: 'See the increase in productivity & output',
-        doAnimateImage: true),
+        color: ColorTheme.primaryColor,
+        imageAssetPath: 'assets/image/game_page.png',
+        title: '円が表示される',
+        body: 'マスの中に\n円がランダムに表示されます。',
+        doAnimateImage: false),
     PageModel(
-        color: const Color(0xFF9B90BC),
-        imageAssetPath: 'assets/image/icon.png',
-        title: 'Screen 3',
-        body: 'Connect with the people from different places',
-        doAnimateImage: true),
-    PageModel.withChild(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 25.0),
-          child:
-              Image.asset('assets/image/icon.png', width: 300.0, height: 300.0),
-        ),
-        color: const Color(0xFF5886d6),
-        doAnimateChild: true)
+        color: ColorTheme.primaryColor,
+        imageAssetPath: 'assets/image/challenge.png',
+        title: '順番通りにタップ',
+        body: '円が表示された順番通りに\nマスをタップしていきましょう。',
+        doAnimateImage: false),
+    PageModel(
+        color: ColorTheme.primaryColor,
+        imageAssetPath: 'assets/image/success.png',
+        title: 'これを繰り返す',
+        body: '選択した回数まで繰り返し\n全て正解すればクリアです。',
+        doAnimateImage: false)
   ];
 
   @override
@@ -50,15 +50,20 @@ class TutorialPage extends ConsumerWidget {
         key: const ValueKey('tutorial'),
         pages: pages,
         showBullets: true,
-        inactiveBulletColor: Colors.blue,
+        allowScroll: true,
+        skipText: 'スキップ',
+        nextText: '次へ',
+        finishText: 'TOPへ',
+        activeBulletColor: Colors.white,
+        inactiveBulletColor: Colors.white.withOpacity(0.2),
         skipCallback: () {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Skip clicked"),
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const TopPage(),
           ));
         },
         finishCallback: () {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Finish clicked"),
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const TopPage(),
           ));
         },
       ),
