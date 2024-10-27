@@ -6,7 +6,7 @@ part of 'score_preference.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$scorePreferenceHash() => r'9b211b47aae994b7afa2ee201e83e89688a2a537';
+String _$scorePreferenceHash() => r'4446da0cb8d86226a94f85548a56a803ba718ab9';
 
 /// See also [ScorePreference].
 @ProviderFor(ScorePreference)

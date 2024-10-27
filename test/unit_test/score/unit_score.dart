@@ -20,7 +20,7 @@ void main() {
       await preferencesRepository
           .setScore([const ScoreModel(cellNumber: 4, challengeNumber: 5)]);
       final result = await preferencesRepository.getScore();
-      expect(result.length, 1);
+      expect(result.last.cellNumber, 4);
     });
 
     test('データを削除する', () async {

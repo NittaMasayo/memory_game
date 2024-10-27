@@ -14,7 +14,7 @@ class ScorePreference extends _$ScorePreference {
     const scoreKeyName = "score";
     repository = SharedRepository(pref, scoreKeyName);
     if (repository != null) {
-      return repository!.getScore();
+      return await repository!.getScore();
     }
     return [];
   }
@@ -25,9 +25,15 @@ class ScorePreference extends _$ScorePreference {
   }
 
   Future<void> setNewScore(ScoreModel newScore) async {
-    final newScoreList = [...state.value!, newScore];
+    List<ScoreModel> scoreList = [newScore];
+    if (state.hasValue) {
+      scoreList = [...state.value!, newScore];
+    }
     if (repository != null) {
-      repository!.setScore(newScoreList);
+      repository!.setScore(scoreList);
+      state = await AsyncValue.guard(() async {
+        return await repository!.getScore();
+      });
     }
   }
 }
