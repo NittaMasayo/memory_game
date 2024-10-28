@@ -84,7 +84,7 @@ class GamePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ゲーム"),
+        title: Text("ゲーム"),
         automaticallyImplyLeading: false,
       ),
       body: Container(
@@ -108,7 +108,7 @@ class GamePage extends ConsumerWidget {
                     onPressed: () {
                       modal.showPauseModal(context, resetBtnFunc);
                     },
-                    child: const Text("一時停止", style: FontStyle.primaryText))
+                    child: Text("一時停止", style: FontStyle.primaryText))
               ],
             ),
             const CommonVerticalSpace(),

@@ -24,7 +24,7 @@ class MemoryApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: ColorTheme.primaryColor,
         scaffoldBackgroundColor: ColorTheme.primaryColor,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
             titleTextStyle: FontStyle.largeText,
             titleSpacing: 8.0,
             backgroundColor: ColorTheme.primaryColor,

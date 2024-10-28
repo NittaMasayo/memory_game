@@ -16,7 +16,7 @@ class TopPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Mneme",
           style: FontStyle.largeText,
         ),
@@ -32,7 +32,7 @@ class TopPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text("Mneme(ムネメ)へようこそ！", style: FontStyle.largeText),
+                    Text("Mneme(ムネメ)へようこそ！", style: FontStyle.largeText),
                     const CommonVerticalSpace(size: 8),
                     Text(
                         data.isNotEmpty
@@ -49,8 +49,7 @@ class TopPage extends ConsumerWidget {
                             ),
                           );
                         },
-                        child:
-                            const Text("始める", style: FontStyle.semiLargeText)),
+                        child: Text("始める", style: FontStyle.semiLargeText)),
                     const CommonVerticalSpace(),
                     TextButton(
                         onPressed: () {
@@ -58,8 +57,7 @@ class TopPage extends ConsumerWidget {
                             builder: (context) => TutorialPage(),
                           ));
                         },
-                        child:
-                            const Text("遊び方", style: FontStyle.semiLargeText)),
+                        child: Text("遊び方", style: FontStyle.semiLargeText)),
                     const CommonVerticalSpace(),
                     data.isNotEmpty
                         ? TextButton(
@@ -67,8 +65,8 @@ class TopPage extends ConsumerWidget {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ScoreListPage()));
                             },
-                            child: const Text("スコア一覧",
-                                style: FontStyle.semiLargeText))
+                            child:
+                                Text("スコア一覧", style: FontStyle.semiLargeText))
                         : const SizedBox.shrink()
                   ],
                 ),

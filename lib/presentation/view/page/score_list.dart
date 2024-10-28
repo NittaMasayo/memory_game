@@ -15,14 +15,14 @@ class ScoreListPage extends ConsumerWidget {
     final score = ref.watch(scorePreferenceProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("スコア一覧"),
+        title: Text("スコア一覧"),
         automaticallyImplyLeading: false,
         leading: TextButton(
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const TopPage()));
             },
-            child: const Text("戻る", style: FontStyle.smallText)),
+            child: Text("戻る", style: FontStyle.smallText)),
       ),
       body: SingleChildScrollView(
         child: Padding(

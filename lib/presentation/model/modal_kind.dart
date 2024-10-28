@@ -16,7 +16,7 @@ extension ModalContentWidget on ModalKind {
           children: [
             TextButton(
                 onPressed: callback,
-                child: const Text("もう1回！", style: FontStyle.primaryText)),
+                child: Text("もう1回！", style: FontStyle.primaryText)),
             const CommonVerticalSpace(),
             TextButton(
                 onPressed: () {
@@ -24,7 +24,7 @@ extension ModalContentWidget on ModalKind {
                     builder: (context) => InputPage(),
                   ));
                 },
-                child: const Text("設定を変える", style: FontStyle.primaryText))
+                child: Text("設定を変える", style: FontStyle.primaryText))
           ],
         );
       case ModalKind.pauseModal:
@@ -36,7 +36,7 @@ extension ModalContentWidget on ModalKind {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("再開", style: FontStyle.primaryText)),
+                child: Text("再開", style: FontStyle.primaryText)),
             const CommonVerticalSpace(),
             TextButton(
                 onPressed: () {
@@ -44,12 +44,12 @@ extension ModalContentWidget on ModalKind {
                     builder: (context) => InputPage(),
                   ));
                 },
-                child: const Text("設定を変える", style: FontStyle.primaryText))
+                child: Text("設定を変える", style: FontStyle.primaryText))
           ],
         );
 
       default:
-        return const Text("エラーが発生しました", style: FontStyle.primaryText);
+        return Text("エラーが発生しました", style: FontStyle.primaryText);
     }
   }
 }

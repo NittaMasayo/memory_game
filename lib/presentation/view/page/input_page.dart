@@ -20,7 +20,7 @@ class InputPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ゲーム設定"),
+        title: Text("ゲーム設定"),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -33,9 +33,9 @@ class InputPage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("※デフォルトでは9マスで10回挑戦します。", style: FontStyle.smallText),
+              Text("※デフォルトでは9マスで10回挑戦します。", style: FontStyle.smallText),
               const CommonVerticalSpace(size: 8.0),
-              const Text("マスの数", style: FontStyle.semiLargeText),
+              Text("マスの数", style: FontStyle.semiLargeText),
               DropdownMenu(
                 key: const ValueKey("cell"),
                 width: MediaQuery.of(context).size.width - 32,
@@ -53,7 +53,7 @@ class InputPage extends ConsumerWidget {
                 ],
               ),
               const CommonVerticalSpace(size: 32),
-              const Text("挑戦する回数", style: FontStyle.semiLargeText),
+              Text("挑戦する回数", style: FontStyle.semiLargeText),
               DropdownMenu(
                 key: const ValueKey("challenge"),
                 width: MediaQuery.of(context).size.width - 32,
@@ -98,7 +98,7 @@ class InputPage extends ConsumerWidget {
                         ),
                       );
                     },
-                    child: const Text("スタート！", style: FontStyle.largeText)),
+                    child: Text("スタート！", style: FontStyle.largeText)),
               ),
               Container(
                 alignment: Alignment.center,
@@ -111,7 +111,7 @@ class InputPage extends ConsumerWidget {
                         ),
                       );
                     },
-                    child: const Text("TOPへ", style: FontStyle.largeText)),
+                    child: Text("TOPへ", style: FontStyle.largeText)),
               )
             ],
           ),

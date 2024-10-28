@@ -17,7 +17,7 @@ class CommonModal {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("失敗！！", style: FontStyle.modalTitleText),
+                  Text("失敗！！", style: FontStyle.modalTitleText),
                   const CommonVerticalSpace(),
                   ModalKind.finishModal.modalInner(retryFunction, context)
                 ],
@@ -38,7 +38,7 @@ class CommonModal {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("一時停止中…", style: FontStyle.modalTitleText),
+                  Text("一時停止中…", style: FontStyle.modalTitleText),
                   const CommonVerticalSpace(),
                   ModalKind.pauseModal.modalInner(retryFunction, context)
                 ],
@@ -59,7 +59,7 @@ class CommonModal {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("成功！！", style: FontStyle.modalTitleText),
+                  Text("成功！！", style: FontStyle.modalTitleText),
                   const CommonVerticalSpace(),
                   ModalKind.finishModal.modalInner(retryFunction, context)
                 ],

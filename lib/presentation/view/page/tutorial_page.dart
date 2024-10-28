@@ -40,7 +40,7 @@ class TutorialPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "遊び方",
           style: FontStyle.largeText,
         ),
