@@ -65,7 +65,7 @@ class TopPage extends ConsumerWidget {
                         ? TextButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const ScoreListPage()));
+                                  builder: (context) => ScoreListPage()));
                             },
                             child: const Text("スコア一覧",
                                 style: FontStyle.semiLargeText))
