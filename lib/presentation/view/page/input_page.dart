@@ -20,7 +20,7 @@ class InputPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ゲーム設定"),
+        title: const Text("ゲーム設定"),
         automaticallyImplyLeading: false,
       ),
       body: Padding(

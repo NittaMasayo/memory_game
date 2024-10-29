@@ -84,7 +84,7 @@ class GamePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("ゲーム"),
+        title: const Text("ゲーム"),
         automaticallyImplyLeading: false,
       ),
       body: Container(
