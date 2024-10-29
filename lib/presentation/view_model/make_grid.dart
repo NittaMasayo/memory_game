@@ -1,17 +1,24 @@
 import 'dart:math' as math;
 
 class MakeGrid {
-  List<int> makeAnswerArray({int challengeNumber = 10, int gridNumber = 9}) {
-    List<int> answerArray = [];
-    for (int i = 1; i <= challengeNumber; i++) {
-      final randomNum = math.Random();
-      int newInt = randomNum.nextInt(gridNumber);
-      if (answerArray.isNotEmpty &&
-          newInt == answerArray[answerArray.length - 1]) {
-        newInt = randomNum.nextInt(gridNumber);
-      }
-      answerArray = [...answerArray, newInt];
+  List<int> generateUniqueList(int length, int min, int max) {
+    List<int> result = [];
+    final randomNum = math.Random();
+
+    for (int i = 0; i < length; i++) {
+      int newValue;
+      do {
+        newValue = randomNum.nextInt(max - min) + min;
+      } while (result.isNotEmpty && result.last == newValue);
+
+      result = [...result, newValue];
     }
+
+    return result;
+  }
+
+  List<int> makeAnswerArray({int challengeNumber = 10, int gridNumber = 9}) {
+    final answerArray = generateUniqueList(challengeNumber, 0, gridNumber);
     return answerArray;
   }
 

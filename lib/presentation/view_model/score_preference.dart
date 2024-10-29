@@ -9,9 +9,9 @@ part 'score_preference.g.dart';
 @riverpod
 class ScorePreference extends _$ScorePreference {
   BaseRepository? repository;
+  final scoreKeyName = "score";
   Future<List<ScoreModel>> _initScore() async {
     final pref = await SharedPreferences.getInstance();
-    const scoreKeyName = "score";
     repository = SharedRepository(pref, scoreKeyName);
     if (repository != null) {
       return await repository!.getScore();
@@ -29,6 +29,11 @@ class ScorePreference extends _$ScorePreference {
     if (state.hasValue) {
       scoreList = [...state.value!, newScore];
     }
+    if (scoreList.length > 50) {
+      scoreList.removeLast();
+    }
+    final pref = await SharedPreferences.getInstance();
+    repository = SharedRepository(pref, scoreKeyName);
     if (repository != null) {
       repository!.setScore(scoreList);
       state = await AsyncValue.guard(() async {
