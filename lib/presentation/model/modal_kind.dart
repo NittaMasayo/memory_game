@@ -20,9 +20,11 @@ extension ModalContentWidget on ModalKind {
             const CommonVerticalSpace(),
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => InputPage(),
-                  ));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => InputPage(),
+                      ),
+                      (route) => false);
                 },
                 child: Text("設定を変える", style: FontStyle.primaryText))
           ],
@@ -40,9 +42,11 @@ extension ModalContentWidget on ModalKind {
             const CommonVerticalSpace(),
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => InputPage(),
-                  ));
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => InputPage(),
+                      ),
+                      (route) => false);
                 },
                 child: Text("設定を変える", style: FontStyle.primaryText))
           ],

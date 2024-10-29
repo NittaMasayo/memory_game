@@ -43,27 +43,31 @@ class TopPage extends ConsumerWidget {
                     TextButton(
                         key: const ValueKey("gameStart"),
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => InputPage(),
-                            ),
-                          );
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => InputPage(),
+                              ),
+                              (route) => false);
                         },
                         child: Text("始める", style: FontStyle.semiLargeText)),
                     const CommonVerticalSpace(),
                     TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TutorialPage(),
-                          ));
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => TutorialPage(),
+                              ),
+                              (route) => false);
                         },
                         child: Text("遊び方", style: FontStyle.semiLargeText)),
                     const CommonVerticalSpace(),
                     data.isNotEmpty
                         ? TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ScoreListPage()));
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => ScoreListPage()),
+                                  (route) => false);
                             },
                             child:
                                 Text("スコア一覧", style: FontStyle.semiLargeText))

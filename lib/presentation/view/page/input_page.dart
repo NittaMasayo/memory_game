@@ -5,9 +5,7 @@ import 'package:mneme/presentation/view/page/game_page.dart';
 import 'package:mneme/presentation/view/page/top_page.dart';
 import 'package:mneme/presentation/view/theme/color.dart';
 import 'package:mneme/presentation/view/theme/font_style.dart';
-import 'package:mneme/presentation/view_model/counter.dart';
 import 'package:mneme/presentation/view_model/make_grid.dart';
-import 'package:mneme/presentation/view_model/target_circle.dart';
 
 class InputPage extends ConsumerWidget {
   InputPage({super.key});
@@ -81,22 +79,17 @@ class InputPage extends ConsumerWidget {
                 child: TextButton(
                     key: const ValueKey("start"),
                     onPressed: () {
-                      ref.read(counterProvider.notifier).reset();
-                      ref.read(targetCircleProvider.notifier).reset();
                       final makeGrid = MakeGrid();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => GamePage(
-                            cellNumber: int.parse(cellNumberController.text),
-                            challengeNum: int.parse(counterTimeNumber.text),
-                            gridArray: makeGrid.makeAnswerArray(
-                                gridNumber:
-                                    int.parse(cellNumberController.text),
-                                challengeNumber:
-                                    int.parse(counterTimeNumber.text)),
-                          ),
+                      final newGridArray = makeGrid.makeAnswerArray(
+                          gridNumber: int.parse(cellNumberController.text),
+                          challengeNumber: int.parse(counterTimeNumber.text));
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GamePage(
+                          cellNumber: int.parse(cellNumberController.text),
+                          challengeNum: int.parse(counterTimeNumber.text),
+                          gridArray: newGridArray,
                         ),
-                      );
+                      ));
                     },
                     child: Text("スタート！", style: FontStyle.largeText)),
               ),
@@ -105,7 +98,7 @@ class InputPage extends ConsumerWidget {
                 child: TextButton(
                     key: const ValueKey("toTop"),
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const TopPage(),
                         ),

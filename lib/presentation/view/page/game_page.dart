@@ -34,7 +34,6 @@ class GamePage extends ConsumerWidget {
     final targetNum = ref.watch(targetCircleProvider);
 
     void resetBtnFunc() {
-      answerList = [];
       ref.read(counterProvider.notifier).reset();
       ref.read(targetCircleProvider.notifier).reset();
       Navigator.pop(context);
@@ -52,6 +51,7 @@ class GamePage extends ConsumerWidget {
     }
 
     void successModal() {
+      answerList = [];
       ref.read(scorePreferenceProvider.notifier).setNewScore(
           ScoreModel(cellNumber: cellNumber, challengeNumber: challengeNum));
       modal.showSuccessModal(context, () {
@@ -65,6 +65,7 @@ class GamePage extends ConsumerWidget {
       for (int i = 0; i < answerList.length; i++) {
         if (gridArray[i] != answerList[i]) {
           isFailed = true;
+          answerList = [];
           modal.showRetryModal(context, resetBtnFunc);
           break;
         }
