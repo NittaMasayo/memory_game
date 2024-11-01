@@ -25,8 +25,14 @@ class TutorialPage extends ConsumerWidget {
     PageModel(
         color: ColorTheme.primaryColor,
         imageAssetPath: 'assets/image/challenge.png',
+        title: '順番を覚える',
+        body: '円が止まるまで待ち\n表示されたマスの順番を覚えましょう。',
+        doAnimateImage: false),
+    PageModel(
+        color: ColorTheme.primaryColor,
+        imageAssetPath: 'assets/image/challenge.png',
         title: '順番通りにタップ',
-        body: '円が表示された順番通りに\nマスをタップしていきましょう。',
+        body: '覚えた順番通りに\nマスをタップしていきます。',
         doAnimateImage: false),
     PageModel(
         color: ColorTheme.primaryColor,
