@@ -91,7 +91,7 @@ class GamePage extends ConsumerWidget {
       body: Container(
         alignment: Alignment.topCenter,
         padding: EdgeInsets.fromLTRB(
-            8, MediaQuery.of(context).size.height / 16, 16, 8),
+            8, MediaQuery.of(context).size.height / 10, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
