@@ -10,7 +10,7 @@ part 'score_preference.g.dart';
 class ScorePreference extends _$ScorePreference {
   BaseRepository? repository;
   final scoreKeyName = "score";
-  Future<List<ScoreModel>> _initScore() async {
+  Future<List<ScoreModel>> _fetchScore() async {
     final pref = await SharedPreferences.getInstance();
     repository = SharedRepository(pref, scoreKeyName);
     if (repository != null) {
@@ -21,24 +21,18 @@ class ScorePreference extends _$ScorePreference {
 
   @override
   Future<List<ScoreModel>> build() {
-    return _initScore();
+    return _fetchScore();
   }
 
   Future<void> setNewScore(ScoreModel newScore) async {
-    List<ScoreModel> scoreList = [newScore];
-    if (state.hasValue) {
-      scoreList = [...state.value!, newScore];
-    }
-    if (scoreList.length > 50) {
-      scoreList.removeLast();
-    }
-    final pref = await SharedPreferences.getInstance();
-    repository = SharedRepository(pref, scoreKeyName);
-    if (repository != null) {
-      repository!.setScore(scoreList);
-      state = await AsyncValue.guard(() async {
-        return await repository!.getScore();
-      });
-    }
+    state = await AsyncValue.guard(() async {
+      final newData = await _fetchScore();
+      if (repository == null) {
+        final pref = await SharedPreferences.getInstance();
+        repository = SharedRepository(pref, scoreKeyName);
+      }
+      repository!.setScore([...newData, newScore]);
+      return _fetchScore();
+    });
   }
 }

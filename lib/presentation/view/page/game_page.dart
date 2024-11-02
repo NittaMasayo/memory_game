@@ -87,6 +87,13 @@ class GamePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("ゲーム"),
         automaticallyImplyLeading: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(3.0),
+          child: Container(
+            color: Colors.white.withOpacity(0.2),
+            height: 1.0,
+          ),
+        ),
       ),
       body: Container(
         alignment: Alignment.topCenter,
@@ -124,7 +131,8 @@ class GamePage extends ConsumerWidget {
                         crossAxisSpacing: 0),
                     itemCount: cellNumber,
                     itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
+                      return InkWell(
+                          highlightColor: Colors.white12.withOpacity(0.2),
                           onTap: () {
                             tapCircleFunc(index);
                           },

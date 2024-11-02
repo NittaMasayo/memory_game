@@ -51,6 +51,13 @@ class TutorialPage extends ConsumerWidget {
           style: FontStyle.largeText,
         ),
         automaticallyImplyLeading: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(3.0),
+          child: Container(
+            color: Colors.white.withOpacity(0.2),
+            height: 1.0,
+          ),
+        ),
       ),
       body: OverBoard(
         key: const ValueKey('tutorial'),

@@ -20,6 +20,13 @@ class InputPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("ゲーム設定"),
         automaticallyImplyLeading: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(3.0),
+          child: Container(
+            color: Colors.white.withOpacity(0.2),
+            height: 1.0,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(
