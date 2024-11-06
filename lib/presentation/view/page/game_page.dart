@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/web.dart';
+import 'package:mneme/business/model/score_model.dart';
 import 'package:mneme/presentation/view/common/common_vertical_space.dart';
 import 'package:mneme/presentation/view/common/modal.dart';
 import 'package:mneme/presentation/view/common/tap_target_circle.dart';
@@ -33,7 +34,6 @@ class GamePage extends ConsumerWidget {
     final targetNum = ref.watch(targetCircleProvider);
 
     void resetBtnFunc() {
-      answerList = [];
       ref.read(counterProvider.notifier).reset();
       ref.read(targetCircleProvider.notifier).reset();
       Navigator.pop(context);
@@ -51,10 +51,10 @@ class GamePage extends ConsumerWidget {
     }
 
     void successModal() {
+      answerList = [];
+      ref.read(scorePreferenceProvider.notifier).setNewScore(
+          ScoreModel(cellNumber: cellNumber, challengeNumber: challengeNum));
       modal.showSuccessModal(context, () {
-        ref
-            .read(scorePreferenceProvider.notifier)
-            .setNewScore(cellNumber * challengeNum);
         resetBtnFunc();
       });
     }
@@ -65,6 +65,7 @@ class GamePage extends ConsumerWidget {
       for (int i = 0; i < answerList.length; i++) {
         if (gridArray[i] != answerList[i]) {
           isFailed = true;
+          answerList = [];
           modal.showRetryModal(context, resetBtnFunc);
           break;
         }
@@ -86,11 +87,18 @@ class GamePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("ゲーム"),
         automaticallyImplyLeading: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(3.0),
+          child: Container(
+            color: Colors.white.withOpacity(0.2),
+            height: 1.0,
+          ),
+        ),
       ),
       body: Container(
         alignment: Alignment.topCenter,
         padding: EdgeInsets.fromLTRB(
-            8, MediaQuery.of(context).size.height / 16, 16, 8),
+            8, MediaQuery.of(context).size.height / 10, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +116,7 @@ class GamePage extends ConsumerWidget {
                     onPressed: () {
                       modal.showPauseModal(context, resetBtnFunc);
                     },
-                    child: const Text("一時停止", style: FontStyle.primaryText))
+                    child: Text("一時停止", style: FontStyle.primaryText))
               ],
             ),
             const CommonVerticalSpace(),
@@ -123,7 +131,8 @@ class GamePage extends ConsumerWidget {
                         crossAxisSpacing: 0),
                     itemCount: cellNumber,
                     itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
+                      return InkWell(
+                          highlightColor: Colors.white12.withOpacity(0.2),
                           onTap: () {
                             tapCircleFunc(index);
                           },

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mneme/business/model/score_model.dart';
 import 'package:mneme/business/repository/base_repository.dart';
 import 'package:mneme/business/repository/shared_repository.dart';
 import 'package:mneme/presentation/view_model/make_grid.dart';
@@ -16,15 +17,16 @@ void main() {
     });
 
     test('保存したデータが正しく取得できる', () async {
-      await preferencesRepository.setScore(1);
+      await preferencesRepository
+          .setScore([const ScoreModel(cellNumber: 4, challengeNumber: 5)]);
       final result = await preferencesRepository.getScore();
-      expect(result, 1);
+      expect(result.last.cellNumber, 4);
     });
 
     test('データを削除する', () async {
       await preferencesRepository.resetScore();
       final result = await preferencesRepository.getScore();
-      expect(result, 0);
+      expect(result.length, 0);
     });
   });
 

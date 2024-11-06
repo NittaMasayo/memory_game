@@ -25,15 +25,17 @@ class InputWidget {
       await tester.pumpAndSettle();
 
       final dropdownItem = find.text("16").last;
-      await tester.tap(dropdownItem);
+      await tester.tap(dropdownItem, warnIfMissed: false);
       expect(find.text("16"), findsAtLeast(2));
-      await tester.tap(find.text("16").first);
+
+      await tester.tap(find.text("16").first, warnIfMissed: false);
       await tester.pumpAndSettle();
 
       final timeTextBox = find.byKey(const ValueKey("challenge"));
-      await tester.tap(timeTextBox);
+      await tester.tap(timeTextBox, warnIfMissed: false);
       expect(find.text("10"), findsAtLeast(2));
-      await tester.tap(find.text("10").first);
+
+      await tester.tap(find.text("10").first, warnIfMissed: false);
       await tester.pumpAndSettle();
 
       final startButton = find.byKey(const ValueKey("start"));

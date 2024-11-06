@@ -5,9 +5,7 @@ import 'package:mneme/presentation/view/page/game_page.dart';
 import 'package:mneme/presentation/view/page/top_page.dart';
 import 'package:mneme/presentation/view/theme/color.dart';
 import 'package:mneme/presentation/view/theme/font_style.dart';
-import 'package:mneme/presentation/view_model/counter.dart';
 import 'package:mneme/presentation/view_model/make_grid.dart';
-import 'package:mneme/presentation/view_model/target_circle.dart';
 
 class InputPage extends ConsumerWidget {
   InputPage({super.key});
@@ -22,6 +20,13 @@ class InputPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("ゲーム設定"),
         automaticallyImplyLeading: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(3.0),
+          child: Container(
+            color: Colors.white.withOpacity(0.2),
+            height: 1.0,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(
@@ -33,9 +38,9 @@ class InputPage extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("※デフォルトでは9マスで10回挑戦します。", style: FontStyle.smallText),
+              Text("※デフォルトでは9マスで10回挑戦します。", style: FontStyle.smallText),
               const CommonVerticalSpace(size: 8.0),
-              const Text("マスの数", style: FontStyle.semiLargeText),
+              Text("マスの数", style: FontStyle.semiLargeText),
               DropdownMenu(
                 key: const ValueKey("cell"),
                 width: MediaQuery.of(context).size.width - 32,
@@ -53,7 +58,7 @@ class InputPage extends ConsumerWidget {
                 ],
               ),
               const CommonVerticalSpace(size: 32),
-              const Text("挑戦する回数", style: FontStyle.semiLargeText),
+              Text("挑戦する回数", style: FontStyle.semiLargeText),
               DropdownMenu(
                 key: const ValueKey("challenge"),
                 width: MediaQuery.of(context).size.width - 32,
@@ -81,37 +86,32 @@ class InputPage extends ConsumerWidget {
                 child: TextButton(
                     key: const ValueKey("start"),
                     onPressed: () {
-                      ref.read(counterProvider.notifier).reset();
-                      ref.read(targetCircleProvider.notifier).reset();
                       final makeGrid = MakeGrid();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => GamePage(
-                            cellNumber: int.parse(cellNumberController.text),
-                            challengeNum: int.parse(counterTimeNumber.text),
-                            gridArray: makeGrid.makeAnswerArray(
-                                gridNumber:
-                                    int.parse(cellNumberController.text),
-                                challengeNumber:
-                                    int.parse(counterTimeNumber.text)),
-                          ),
+                      final newGridArray = makeGrid.makeAnswerArray(
+                          gridNumber: int.parse(cellNumberController.text),
+                          challengeNumber: int.parse(counterTimeNumber.text));
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GamePage(
+                          cellNumber: int.parse(cellNumberController.text),
+                          challengeNum: int.parse(counterTimeNumber.text),
+                          gridArray: newGridArray,
                         ),
-                      );
+                      ));
                     },
-                    child: const Text("スタート！", style: FontStyle.largeText)),
+                    child: Text("スタート！", style: FontStyle.largeText)),
               ),
               Container(
                 alignment: Alignment.center,
                 child: TextButton(
                     key: const ValueKey("toTop"),
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const TopPage(),
                         ),
                       );
                     },
-                    child: const Text("TOPへ", style: FontStyle.largeText)),
+                    child: Text("TOPへ", style: FontStyle.largeText)),
               )
             ],
           ),

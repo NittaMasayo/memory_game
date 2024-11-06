@@ -7,6 +7,7 @@ import 'package:mneme/presentation/view/theme/font_style.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -16,7 +17,6 @@ void main() {
 class MemoryApp extends StatelessWidget {
   const MemoryApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +25,7 @@ class MemoryApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: ColorTheme.primaryColor,
         scaffoldBackgroundColor: ColorTheme.primaryColor,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
             titleTextStyle: FontStyle.largeText,
             titleSpacing: 8.0,
             backgroundColor: ColorTheme.primaryColor,
